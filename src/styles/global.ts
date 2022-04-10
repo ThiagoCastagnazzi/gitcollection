@@ -1,7 +1,5 @@
 import {createGlobalStyle} from 'styled-components';
 
-import imgBackground from '../assets/background.svg';
-
 export const GlobalStyle = createGlobalStyle`
     * {
         margin: 0;
@@ -10,20 +8,15 @@ export const GlobalStyle = createGlobalStyle`
         box-sizing: border-box;
     }
 
-    html{
-        @media (max-width: 1080px){
-            font-size: 93.75%;
-        }
-
-        @media (max-width: 720px){
-            font-size: 87.5%;
-        }
-    }
-
     body{
-        background: #CCCCCC url(${imgBackground}) no-repeat 70% top;
+        background: #ccc;
         -webkit-font-smoothing: antialiased;
         height: 100vh;
+    }
+
+    img{
+        display: block;
+        width: 100%;
     }
 
     body, input, textarea, button{
@@ -41,11 +34,5 @@ export const GlobalStyle = createGlobalStyle`
 
     button {
         cursor: pointer;
-    }
-
-    #root{
-        max-width: 960px;
-        margin: 0 auto;
-        padding: 2.5rem 1.25rem;
     }
 `;
