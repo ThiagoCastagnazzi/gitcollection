@@ -1,7 +1,7 @@
 import React from 'react';
 
 import {api} from '../../services/api';
-import {Header, Logo, Title, Form, Repos, Wrapper, Div} from './style';
+import {Header, Logo, Title, Form, Repos, Wrapper, Error} from './style';
 import logo from '../../assets/perfil-amarelo.png';
 
 interface GithubRepository{
@@ -13,8 +13,17 @@ interface GithubRepository{
 }
 }
 export const Dashboard: React.FC = () => {
-    const [repos, setRepos] = React.useState<GithubRepository[]>([]);
+    const [repos, setRepos] = React.useState<GithubRepository[]>(() =>{
+        const storageRepos = localStorage.getItem('@GitCollection:repositories');
+
+        return storageRepos === null ? [] : JSON.parse(storageRepos);
+    });
     const [newRepo, setNewRepo] = React.useState('');
+    const [inputError, setInputError] = React.useState('');
+
+    React.useEffect(() => {
+        localStorage.setItem('@GitCollection:repositories', JSON.stringify(repos));
+    }, [repos])
 
     function handleInputChange (event: React.ChangeEvent<HTMLInputElement>): void {
         setNewRepo(event.target.value);
@@ -22,6 +31,12 @@ export const Dashboard: React.FC = () => {
 
     async function handleAddRepo (event: React.FormEvent<HTMLFormElement>): Promise<void>{
         event.preventDefault();
+
+        if (!newRepo){
+            setInputError('Digite o autor/nome do repositório');
+            return;
+        } 
+
         const response = await api.get<GithubRepository>(`repos/${newRepo}`);
         const repository = response.data;
         setRepos([...repos, repository]);
@@ -35,16 +50,15 @@ export const Dashboard: React.FC = () => {
         <a href="/"><Logo><img src={logo} alt='gitcolletions' /></Logo></a>
         <h1>Catálogo de Repositórios</h1>
         </div>
-        <div>
-                <Form onSubmit={handleAddRepo}>
-                    <input placeholder='username/repository_name' onChange={handleInputChange} />
-                    <button type='submit'>Buscar</button>
-                </Form>
-        </div>
         </Header>
     <Wrapper>
         <Title>GitColletions Repositórios</Title>
-        <Div>
+        <Form hasError={Boolean(inputError)} onSubmit={handleAddRepo}>
+                    <input placeholder='username/repository_name' onChange={handleInputChange} />
+                    <button type='submit'>Buscar</button>
+                    {inputError && <Error>{inputError}</Error>}
+        </Form>
+        
         <Repos>
             {repos.map
                 (repository =>
@@ -61,8 +75,7 @@ export const Dashboard: React.FC = () => {
                 )
             }
         </Repos>
-        </Div>
-        </Wrapper>
+    </Wrapper>
     </>
     )
 }
