@@ -14,6 +14,14 @@ export const GlobalStyle = createGlobalStyle`
         height: 100vh;
     }
 
+    header{
+        display: flex;
+        align-items: center;
+        background-color: #000;
+        padding: 10px;
+        justify-content: space-around;
+    }
+
     img{
         display: block;
         width: 100%;

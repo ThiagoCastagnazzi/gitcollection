@@ -6,11 +6,6 @@ interface FormProps{
 }
 
 export const Header = styled.header`
-  display: flex;
-  align-items: center;
-  background-color: #000;
-  padding: 10px;
-  justify-content: space-around;
 
   .logo{
     display: flex;
@@ -49,8 +44,7 @@ export const Wrapper = styled.section`
   display: grid;
   grid-template-columns: 1fr;
   gap: 1rem;
-  max-width: 1440px;
-  margin-top: 10px;
+  margin: 0 auto;
 `
 
 export const Form = styled.form<FormProps>`
