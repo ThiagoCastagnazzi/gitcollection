@@ -4,8 +4,6 @@ import { Dashboard } from '../pages/Dashboard';
 import { Repo } from '../pages/Repo';
 import { NotFound } from '../pages/NotFound';
 
-import { GlobalStyle } from '../styles/global';
-
 export const Rotas: React.FC = () => {
     return (
         <>
@@ -14,7 +12,6 @@ export const Rotas: React.FC = () => {
             <Route path='/repositories/:repository/*' element={<Repo />} />
             <Route path="*" element={<NotFound />} />
         </Routes>
-        <GlobalStyle />
         </>
     )
 }
