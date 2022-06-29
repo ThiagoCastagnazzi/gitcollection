@@ -11,8 +11,7 @@ export const Rotas: React.FC = () => {
         <>
         <Routes>
             <Route path="/" element={<Dashboard />} />
-            <Route path="/repositories/" element={<Repo />} />
-            <Route path="/repositories/:repository/*" element={<Repo />} />
+            <Route path='/repositories/:repository/*' element={<Repo />} />
             <Route path="*" element={<NotFound />} />
         </Routes>
         <GlobalStyle />

@@ -19,7 +19,7 @@ export const GlobalStyle = createGlobalStyle`
         align-items: center;
         background-color: #000;
         padding: 10px;
-        justify-content: space-around;
+        justify-content: space-evenly;
     }
 
     img{
